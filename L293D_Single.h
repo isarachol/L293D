@@ -4,17 +4,17 @@
 
 class L293D_Single {
   private:
-    byte en_pin;
-    byte a1_pin;
-    byte a2_pin;
+    uint8_t en_pin;
+    uint8_t a1_pin;
+    uint8_t a2_pin;
 
   public:
-    L293D_Single(byte, byte, byte);
+    L293D_Single(uint8_t, uint8_t, uint8_t);
 
     void configure();
 
-    void start();
-    void stop();
+    void enable();
+    void disable();
 
-    void run(bool, int);
+    void run(int);
 };

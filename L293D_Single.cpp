@@ -1,6 +1,6 @@
 #include "L293D_Single.h"
 
-L293D_Single::L293D_Single(byte en, byte a1, byte a2) {
+L293D_Single::L293D_Single(uint8_t en, uint8_t a1, uint8_t a2) {
     en_pin = en;
     a1_pin = a1;
     a2_pin = a2;
@@ -15,21 +15,22 @@ void L293D_Single::configure() {
     digitalWrite(a2_pin, LOW);
 }
 
-void L293D_Single::start() {
+void L293D_Single::enable() {
     digitalWrite(en_pin, HIGH);
 }    
 
-void L293D_Single::stop() {
+void L293D_Single::disable() {
     digitalWrite(en_pin, LOW);
 } 
 
-void L293D_Single::run(bool dir, int speed) {
-    if (dir) {
-    analogWrite(a2_pin, 0);
+// speed = [-255, 255]
+void L293D_Single::run(int speed) {
+    if (speed >= 0) {
     analogWrite(a1_pin, speed);
+    analogWrite(a2_pin, 0);
     }
     else {
     analogWrite(a1_pin, 0);
-    analogWrite(a2_pin, speed);
+    analogWrite(a2_pin, -speed);
     }
 }
